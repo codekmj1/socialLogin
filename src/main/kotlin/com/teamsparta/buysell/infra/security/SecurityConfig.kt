@@ -86,7 +86,6 @@ class SecurityConfig(
         // 추가 소셜 설정을 기본 소셜 설정에 추가
         if (customRegistrations != null) {
             for (customRegistration in customRegistrations) {
-
                 when (customRegistration.key) {
                     "kakao" -> registrations.add(
                         CustomOAuth2Provider.KAKAO.getBuilder("kakao")
@@ -98,12 +97,9 @@ class SecurityConfig(
                             .clientId(customRegistration.value.clientId)
                             .clientSecret(customRegistration.value.clientSecret)
                             .build())
-
                 }
-
             }
         }
-
         return InMemoryClientRegistrationRepository(registrations)
     }
 
@@ -116,37 +112,7 @@ class SecurityConfig(
                 .clientSecret(registration?.clientSecret)
                 .scope(registration?.scope)
                 .build()
-
-
             else -> null
         }
     }
-
-
 }
-
-//                "naver" -> registrations.add(CustomOAuth2Provider.NAVER.getBuilder("naver")
-//                    .clientId(customRegistration.value.clientId)
-//                    .clientSecret(customRegistration.value.clientSecret)
-//                    .jwkSetUri(customRegistration.value.jwkSetUri)
-//                    .build())
-
-//    @Bean
-//    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
-//        return http.formLogin { it.disable() }
-//            .httpBasic { it.disable() }
-//            .csrf { it.disable() }
-//            .cors { it.disable() }
-//            .headers { it.frameOptions { options -> options.sameOrigin() } }
-//            .sessionManagement {
-//                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//            }.oauth2Login { oauthConfig ->
-//                oauthConfig.authorizationEndpoint {
-//                    it.baseUri("/oauth2/login") // /oauth2/login/kakao
-//                }.redirectionEndpoint {
-//                    it.baseUri("/oauth2/callback/*") // /oauth2/callback/kakao
-//                }.userInfoEndpoint {
-//                    it.userService(oAuth2UserService)
-//                }.successHandler(oAuth2LoginSuccessHandler)
-//            }.build()
-//    }
